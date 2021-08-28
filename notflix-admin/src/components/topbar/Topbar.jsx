@@ -2,7 +2,7 @@ import "./topbar.css"
 import { NotificationsNone, Language, Settings } from "@material-ui/icons"
 import { AuthContext } from '../../context/authContext/authContext'
 import { logoutHandler } from '../../context/authContext/apiCalls'
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 
 export default function Topbar() {
   
