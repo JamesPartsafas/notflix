@@ -4,7 +4,7 @@ import {
   Timeline,
   TrendingUp,
   PermIdentity,
-  Storefront,
+  PlayArrow,
   AttachMoney,
   BarChart,
   MailOutline,
@@ -47,10 +47,10 @@ export default function Sidebar() {
                 Users
               </li>
             </Link>
-            <Link to="/products" className="link">
+            <Link to="/movies" className="link">
               <li className="sidebarListItem">
-                <Storefront className="sidebarIcon" />
-                Products
+                <PlayArrow className="sidebarIcon" />
+                Movies
               </li>
             </Link>
             <li className="sidebarListItem">

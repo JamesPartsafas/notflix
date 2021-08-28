@@ -1,8 +1,18 @@
-import React from "react";
-import "./topbar.css";
-import { NotificationsNone, Language, Settings } from "@material-ui/icons";
+import "./topbar.css"
+import { NotificationsNone, Language, Settings } from "@material-ui/icons"
+import { AuthContext } from '../../context/authContext/authContext'
+import { logoutHandler } from '../../context/authContext/apiCalls'
+import { useState, useContext } from 'react'
 
 export default function Topbar() {
+  
+  const {isFetching, dispatch} = useContext(AuthContext)
+
+  const handleLogin = (e) => {
+      e.preventDefault()
+      logoutHandler(localStorage.getItem('user'), dispatch)
+  }
+
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -10,6 +20,12 @@ export default function Topbar() {
           <span className="logo">lamaadmin</span>
         </div>
         <div className="topRight">
+          <button
+            onClick={handleLogin}
+            disabled={isFetching}
+          >
+            Logout
+          </button>
           <div className="topbarIconContainer">
             <NotificationsNone />
             <span className="topIconBadge">2</span>
