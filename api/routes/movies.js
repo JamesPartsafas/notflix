@@ -103,8 +103,8 @@ router.get('/random', verify, async (req, res) => {
     }
 })
 
-//GET ALL
-//Get all films from the database
+//DELETE
+//Delete film from the database
 router.delete('/:id', verify, async (req, res) => {
     if (req.user.isAdmin) {
         try {

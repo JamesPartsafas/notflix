@@ -1,7 +1,32 @@
 import './featured.scss'
 import { InfoOutlined, PlayArrow } from '@material-ui/icons'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Featured = ({ type }) => {
+
+    const [content, setContent] = useState({})
+
+    useEffect(() => {
+        const getRandomFeatured = async () => {
+            try {
+                const res = await axios.get(`movies/random?type=${type}`,
+                    {
+                        headers: {
+                            token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjkyMDk1YzFhZjcyZDQ1NzIzNmU2OCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzMDA5NjMxMywiZXhwIjoxNjMwNTI4MzEzfQ.4N5UTxRt0e0I7zqMAo0PmG707D8WroU9qaOXNU6GUbw'
+                        }
+                    }
+                )
+                const data = res.data
+                setContent(data[Math.floor(Math.random()*data.length)]) //Choose random item from array
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        getRandomFeatured()
+    }, [type])
+
     return (
         <div className="featured">
             {type && (
@@ -24,14 +49,10 @@ const Featured = ({ type }) => {
                     </select>
                 </div>
             )}
-            <img src="https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="Featured Film" />
+            <img src={content.img} alt="Featured Film" /> {/* Background image */}
             <div className="info">
-                <img src="https://occ-0-1432-1433.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABQq7tk0559I6V-2JOzeZUVb9NBKmKbBGHy5tFraxB9jN-O9cBB595XlGhG9Ao2JK2aF3Q0ydLBYyFHSe0OFyThDRCqsrVt-bioHd.webp?r=933" alt="" />
-                <span className="desc">Le lorem ipsum est, en imprimerie, une 
-                suite de mots sans signification utilisée à titre provisoire 
-                pour calibrer une mise en page, 
-                le texte définitif venant remplacer le faux-texte dès 
-                qu'il est prêt ou que la mise en page est achevée.</span>
+                <img src={content.imgTitle} alt="" />
+                <span className="desc">{content.description}</span>
                 <div className="buttons">
                     <button className="play">
                         <PlayArrow />

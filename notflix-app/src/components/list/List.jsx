@@ -3,7 +3,7 @@ import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icon
 import ListItem from '../listItem/ListItem'
 import { useRef, useState } from 'react'
 
-const List = () => {
+const List = ({ list }) => {
 
     const [slideNumber, setSlideNumber] = useState(0)
     const [disable, setDisable] = useState(false)
@@ -31,20 +31,13 @@ const List = () => {
 
     return (
         <div className="list">
-            <span className="listTitle">Continue to watch</span>
+            <span className="listTitle">{list.title}</span>
             <div className="wrapper">
                 <button className="left" disabled={disable} style={{display: slideNumber === 0 && "none"}} onClick={() => {handleClick('left')}}><ArrowBackIosOutlined className="sliderArrow" /></button>
                     <div className="container" ref={listRef} >
-                        <ListItem index={0} />
-                        <ListItem index={1} />
-                        <ListItem index={2} />
-                        <ListItem index={3} />
-                        <ListItem index={4} />
-                        <ListItem index={5} />
-                        <ListItem index={6} />
-                        <ListItem index={7} />
-                        <ListItem index={8} />
-                        <ListItem index={9} />
+                        {list.content.map((item, i) => {
+                            return <ListItem index={i} item={item} key={i} />
+                        })}
                     </div>
                 <button className="right" disabled={disable} onClick={() => {handleClick('right')}}><ArrowForwardIosOutlined className="sliderArrow" /></button>
             </div>
