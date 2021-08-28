@@ -57,6 +57,10 @@
   margin-top: 10px;
 }
 
+.productInfoKey {
+  margin-right: 20px;
+}
+
 .productInfoItem {
   width: 150px;
   display: flex;

@@ -103,9 +103,9 @@ router.get('/random', verify, async (req, res) => {
     }
 })
 
-//DELETE
-//Delete film from the database
-router.delete('/:id', verify, async (req, res) => {
+//GET ALL
+//Get all films from the database
+router.get('/', verify, async (req, res) => {
     if (req.user.isAdmin) {
         try {
             const movies = await Movie.find()
@@ -116,7 +116,7 @@ router.delete('/:id', verify, async (req, res) => {
         }
     }
     else {
-        res.status(403).json('You are not authorized to delete movies')
+        res.status(403).json('You are not authorized to view all movies')
     }
 })
 
