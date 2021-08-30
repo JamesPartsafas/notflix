@@ -1,6 +1,8 @@
 import "./newProduct.css"
-import { useState } from "react"
-import storage from '../../firebaseConfig.js'
+import { useState, useContext } from "react"
+import storage from '../../firebase.js'
+import { createMovie } from "../../context/movieContext/apiCalls"
+import { MovieContext } from '../../context/movieContext/MovieContext'
 
 export default function NewProduct() {
 
@@ -12,28 +14,30 @@ export default function NewProduct() {
   const [video, setVideo] = useState(null)
   const [uploaded, setUploaded] = useState(0)
 
+  const {dispatch} = useContext(MovieContext)
+
   const handleChange = (e) => {
     const value = e.target.value
     setMovie({...movie, [e.target.name]: value})
   }
 
   const upload = (items) => {
-    // items.forEach(item => {
-    //   const fileName = new Date().getTime() + item.label + item.file.name //Give each file a unique name
-    //   const uploadTask = storage.ref(`/items/${item.file.name}`).put(item)
-    //   uploadTask.on('state_changed', 
-    //     (snapshot) => {
-    //       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-    //       console.log('Upload is at ' + progress + '%')
-    //     },
-    //     (err) => {console.log(err)}, () => {
-    //       uploadTask.snapshot.red.getDownloadURL().then(url => {
-    //         setMovie(prev => {return {...prev, [item.label]: url}})
-    //         setUploaded(prev => prev+1)
-    //       })
-    //     }
-    //   )
-    // })
+    items.forEach(item => {
+      const fileName = new Date().getTime() + item.label + item.file.name //Give each file a unique name
+      const uploadTask = storage.ref(`/items/${fileName}`).put(item.file)
+      uploadTask.on('state_changed', 
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          console.log('Upload is at ' + progress + '%')
+        },
+        (err) => {console.log(err)}, () => {
+          uploadTask.snapshot.ref.getDownloadURL().then(url => {
+            setMovie(prev => {return {...prev, [item.label]: url}})
+            setUploaded(prev => prev+1)
+          })
+        }
+      )
+    })
   }
 
   const handleUpload = (e) => {
@@ -45,6 +49,11 @@ export default function NewProduct() {
       {file: trailer, label: 'trailer'},
       {file: video, label: 'video'},
     ])
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    createMovie(movie, dispatch)
   }
 
   return (
@@ -103,7 +112,7 @@ export default function NewProduct() {
           <input type="file" name='video' onChange={e => setVideo(e.target.files[0])} />
         </div>
         {uploaded === 5 ? (
-          <button className="addProductButton">Create Film</button>
+          <button className="addProductButton" onClick={handleSubmit}>Create Film</button>
         ) : 
           <button className="addProductButton" onClick={handleUpload}>Upload Files</button>
         }

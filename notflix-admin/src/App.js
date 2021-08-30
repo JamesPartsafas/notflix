@@ -7,6 +7,9 @@ import UserList from "./pages/userList/UserList"
 import User from "./pages/user/User"
 import NewUser from "./pages/newUser/NewUser"
 import ProductList from "./pages/productList/ProductList"
+import ListList from "./pages/listList/ListList"
+import List from "./pages/list/List"
+import NewList from "./pages/newList/NewList"
 import Product from "./pages/product/Product"
 import NewProduct from "./pages/newProduct/NewProduct"
 import Login from "./pages/login/Login"
@@ -47,6 +50,15 @@ function App() {
               </Route>
               <Route path="/newmovie">
                 <NewProduct />
+              </Route>
+              <Route path="/lists">
+                <ListList />
+              </Route>
+              <Route path="/list/:listId">
+                <List />
+              </Route>
+              <Route path="/newlist">
+                <NewList />
               </Route>
           </div>
         </> : <Redirect to='/login' />}
