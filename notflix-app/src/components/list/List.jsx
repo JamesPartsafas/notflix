@@ -2,11 +2,14 @@ import './list.scss'
 import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icons'
 import ListItem from '../listItem/ListItem'
 import { useRef, useState } from 'react'
+import useWindowDimensions from '../../hooks/useWindowDimensions'
 
 const List = ({ list }) => {
 
     const [slideNumber, setSlideNumber] = useState(0)
     const [disable, setDisable] = useState(false)
+
+    const { height, width } = useWindowDimensions();
 
     const listRef = useRef()
 
@@ -15,11 +18,12 @@ const List = ({ list }) => {
         setDisable(true) //prevent multiclicks
 
         let distance = listRef.current.getBoundingClientRect().x - 50 //-50 because there's already a 50px margin
+
         if (direction === 'left' && slideNumber > 0) {
             setSlideNumber(prev => prev - 1)
             listRef.current.style.transform = `translateX(${230 + distance}px)`
         }
-        else if (direction === 'right' && slideNumber < 5) {
+        else if (direction === 'right' && slideNumber < list.content.length - width/230) {
             setSlideNumber(prev => prev + 1)
             listRef.current.style.transform = `translateX(${-230 + distance}px)`
         }

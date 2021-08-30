@@ -9,10 +9,12 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthContext } from './authContext/authContext'
 
 function App() {
 
-  const user = true
+  const {user} = useContext(AuthContext)
 
   return (
     <div className="App">

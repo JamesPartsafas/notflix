@@ -1,16 +1,28 @@
 import './navbar.scss'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Search, Notifications, ArrowDropDown } from '@material-ui/icons'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { logoutHandler } from '../../authContext/apiCalls'
+import { AuthContext } from '../../authContext/authContext'
 
 const Navbar = () => {
 
     const [isScrolled, setIsScrolled] = useState(false)
 
+    const {dispatch} = useContext(AuthContext)
+
+    const history = useHistory()
+
     //Detect window scrolling to determine navbar color
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true)
         return () => window.onscroll = null
+    }
+
+    const handleLogout = (e) => {
+        e.preventDefault()
+        logoutHandler(localStorage.getItem('user'), dispatch)
+        history.push('/login')
     }
 
     return (
@@ -22,10 +34,10 @@ const Navbar = () => {
                         <span>Homepage</span>
                     </Link>
                     <Link to='/series' className="link">
-                        <span>Series</span>
+                        <span className='navbarMainLinks'>Series</span>
                     </Link>
                     <Link to='/movies' className="link">
-                        <span>Movies</span>
+                        <span className='navbarMainLinks'>Movies</span>
                     </Link>
                     <span>New and Popular</span>
                     <span>My List</span>
@@ -39,7 +51,7 @@ const Navbar = () => {
                         <ArrowDropDown className="icon" />
                         <div className="options">
                             <span>Settings</span>
-                            <span>Logout</span>
+                            <span onClick={handleLogout}>Logout</span>
                         </div>
                     </div>
                 </div>

@@ -1,10 +1,14 @@
 import './register.scss'
 import { useState, useRef } from 'react'
+import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 const Register = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    
+    const history = useHistory()
 
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -13,8 +17,16 @@ const Register = () => {
         setEmail(emailRef.current.value)
     }
 
-    const handlePasswordClick = () => {
+    const handlePasswordClick = async (e) => {
+        e.preventDefault()
         setPassword(passwordRef.current.value)
+        try {
+            await axios.post('auth/register', {email, password, username: email})
+            history.push('/login')
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
     return (
