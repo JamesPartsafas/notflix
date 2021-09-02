@@ -1,11 +1,19 @@
+@import '../../index.scss';
+
 .listItem {
-    width: 225px;
-    height: 120px;
+    width: 400px;
+    height: 220px;
     background-color: var(--main-color);
-    margin-right: 5px;
+    margin-right: 15px;
     overflow: hidden;
     cursor: pointer;
     color: white;
+
+    @include laptop {
+        width: 225px;
+        height: 120px;
+        margin-right: 5px;
+    }
 
     img {
         width: 100%;
@@ -31,8 +39,17 @@
         box-shadow: 0px 1px 15px 0px rgba(255, 255, 255, 0.15);
         border-radius: 5px;
 
+        @include laptop {
+            width: 325px;
+            height: 300px;
+        }
+
         img {
-            height: 140px;
+            height: 190px;
+
+            @include laptop {
+                height: 140px;
+            }
         }
 
         .itemInfo {

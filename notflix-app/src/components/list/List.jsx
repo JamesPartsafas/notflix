@@ -13,19 +13,26 @@ const List = ({ list }) => {
 
     const listRef = useRef()
 
+    let listItemWidth //box width + margin-right of item
+
     const handleClick = (direction) => {
 
         setDisable(true) //prevent multiclicks
+
+        if (width > 1000)
+            listItemWidth = 415
+        else
+            listItemWidth = 230
 
         let distance = listRef.current.getBoundingClientRect().x - 50 //-50 because there's already a 50px margin
 
         if (direction === 'left' && slideNumber > 0) {
             setSlideNumber(prev => prev - 1)
-            listRef.current.style.transform = `translateX(${230 + distance}px)`
+            listRef.current.style.transform = `translateX(${listItemWidth + distance}px)`
         }
-        else if (direction === 'right' && slideNumber < list.content.length - width/230) {
+        else if (direction === 'right' && slideNumber < list.content.length - width/listItemWidth) {
             setSlideNumber(prev => prev + 1)
-            listRef.current.style.transform = `translateX(${-230 + distance}px)`
+            listRef.current.style.transform = `translateX(${-listItemWidth + distance}px)`
         }
 
         setTimeout(() => {
@@ -39,8 +46,8 @@ const List = ({ list }) => {
             <div className="wrapper">
                 <button className="left" disabled={disable} style={{display: slideNumber === 0 && "none"}} onClick={() => {handleClick('left')}}><ArrowBackIosOutlined className="sliderArrow" /></button>
                     <div className="container" ref={listRef} >
-                        {list.content.map((item, i) => {
-                            return <ListItem index={i} item={item} key={i} />
+                        {list.info.map((movie, i) => {
+                            return <ListItem index={i} movie={movie} key={i} />
                         })}
                     </div>
                 <button className="right" disabled={disable} onClick={() => {handleClick('right')}}><ArrowForwardIosOutlined className="sliderArrow" /></button>
