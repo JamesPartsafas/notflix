@@ -28,7 +28,7 @@
                 height: 25px;
                 margin-right: 40px;
 
-                @include mobile {
+                @include tablet {
                     display: none;
                 }
             }
@@ -37,9 +37,9 @@
                 margin-right: 20px;
                 cursor: pointer;
 
-                @include tablet {
-                    display: none;
-                }
+                // @include tablet {
+                //     display: none;
+                // }
 
                 &.navbarMainLinks {
                     @include tablet {
@@ -58,32 +58,14 @@
                 cursor: pointer;
             }
 
-            img {
-                width: 30px;
-                height: 30px;
-                border-radius: 5px;
-                object-fit: cover;
+            .logout {
+                background-color: #E50914;
                 cursor: pointer;
-            }
-
-            .profile {
-                .options {
-                    display: none;
-                    background-color: var(--main-color);
-                    border-radius: 5px;
-                }
-
-                span {
-                    padding: 10px;
-                    cursor: pointer;
-                }
+                border-radius: 6px;
+                padding: 7px;
 
                 &:hover {
-                    .options {
-                        display: flex;
-                        flex-direction: column;
-                        position: absolute;
-                    }
+                    border: 2px solid white;
                 }
             }
         }

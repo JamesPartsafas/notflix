@@ -1,4 +1,17 @@
+@import '../../index.scss';
+
 .home{
     background-color: var(--main-color);
     overflow: hidden;
+
+    hr {
+        border: 1px solid #E50914;
+        width: 60%;
+        margin: 5px auto 60px;
+        border-radius: 3px;
+
+        @include tablet {
+            width: 90%;
+        }
+    }
 }

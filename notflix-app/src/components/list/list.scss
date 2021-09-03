@@ -1,12 +1,25 @@
+@import '../../index.scss';
+
 .list {
     width: 100%;
     margin-top: 10px;
+    margin-bottom: 50px;
 
     .listTitle {
-        color: white;
-        font-size: 20px;
-        font-weight: 500;
-        margin-left: 50px;
+        color: #dbdbdb;
+        font-size: 22px;
+        font-weight: 600;
+        margin-left: 112px;
+
+        @include laptop {
+            margin-left: 67px;
+        }
+
+        @include smallTablet {
+            margin: auto;
+            display: block;
+            text-align: center;
+        }
     }
     
     .wrapper {
@@ -46,6 +59,10 @@
             width: max-content;
             transform: translateX(0px);
             transition: all 0.3s ease;
+
+            @include smallTablet {
+                margin-left: 15px;
+            }
         }
     }
 }
