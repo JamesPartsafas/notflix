@@ -4,6 +4,7 @@
 /node_modules
 /notflix-app/node_modules
 /api/node_modules
+/data-seed/node_modules
 /.pnp
 .pnp.js
 

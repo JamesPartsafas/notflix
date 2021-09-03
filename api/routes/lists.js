@@ -88,7 +88,7 @@ router.get('/page', verify, async (req, res) => {
     const typeQuery = req.query.type
     const genreQuery = req.query.genre
     let list = []
-    const numOfLists = 5
+    const numOfLists = 7
 
     try {
         if (typeQuery) {
