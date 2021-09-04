@@ -1,3 +1,72 @@
+@import '../../index.scss';
+
 .filmCard {
     color: white !important;
+    text-align: justify;
+    margin: 5px auto 30px;
+
+    .closeCard {
+        background-color: var(--main-color);
+        color: white;
+        text-align: right;
+
+        .xIcon {
+            font-size: 30px;
+            cursor: pointer;
+
+            &:hover {
+                color: #dadada;
+                transition: all 0.2s ease;
+            }
+        }
+    }
+
+    .imageHolder {
+        text-align: center;
+        margin-bottom: 20px;
+        background-color: #575757;
+        padding: 10px 0;
+        border: 2px solid black;
+        position: relative;
+        cursor: pointer;
+
+        img {
+            @include mobile {
+                width: 100%;
+            }
+        }
+
+        .playIcon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 110px;
+            color: white;
+
+            &:hover {
+                color: #dadada;
+                transition: all 0.2s ease;
+            }
+        }
+    }
+
+    h2 {
+        margin-bottom: 18px;
+        font-size: 30px;
+    }
+
+    .description {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .moreInfo {
+        margin-bottom: 7px;
+        font-size: 16px;
+
+        span {
+            color: #dadada;
+        }
+    }
 }

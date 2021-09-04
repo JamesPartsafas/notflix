@@ -14,12 +14,10 @@ const ListItem = ({ movie }) => {
     return (
             <div className="listItem">
                 <div className="imageHolder" >
-                    {/* <Link to={{ pathname: "/watch", movie: movie }}> */}
-                        <div onClick={() => setOpen(true)}>
-                            <PosterImage image={movie.img}  />
-                        </div>
-                        <FilmCard open={open} handleClose={handleClose} movie={movie} />
-                    {/* </Link> */}
+                    <div onClick={() => setOpen(true)}>
+                        <PosterImage image={movie.img} />
+                    </div>
+                    <FilmCard open={open} handleClose={handleClose} movie={movie} />
                 </div>
             </div>
     )

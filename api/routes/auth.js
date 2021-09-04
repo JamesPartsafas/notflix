@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
 
         originalPassword !== req.body.password && res.status(401).json('Wrong password or username')
 
-        const accessToken = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.HASH_KEY, { expiresIn: "5d" })
+        const accessToken = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.HASH_KEY, { /*No expiry date */ })
         
         const {password, ...info} = user._doc
         res.status(200).json({ ...info, accessToken }) 

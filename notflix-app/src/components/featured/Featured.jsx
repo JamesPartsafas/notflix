@@ -35,7 +35,7 @@ const Featured = ({ type }) => {
                 <span className="desc">{content.description}</span>
                 <span className="descInfo">Released: {content.year}</span>
                 <span className="descInfo">Rated: {content.limit}</span>
-                <span className="descInfo">Score: {content.rating} / 100</span>
+                <span className="descInfo">{content.rating === 'N/A' ? 'Score: N/A' : (content.isSeries ? `Series Score: ${content.rating} / 100` : `Movie Score: ${content.rating} / 100`)}</span>
                 <div className="buttons">
                     <button className="play">
                         <PlayArrow />
