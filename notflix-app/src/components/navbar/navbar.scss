@@ -20,7 +20,12 @@
         justify-content: space-between;
         height: 70px;
 
-        .left {
+        .navbarMainLinks:hover {
+            color: #dadada;
+            transition: color 0.2s ease;
+        }
+
+        .leftSection {
             display: flex;
             align-items: center;
 
@@ -37,10 +42,6 @@
                 margin-right: 20px;
                 cursor: pointer;
 
-                // @include tablet {
-                //     display: none;
-                // }
-
                 &.navbarMainLinks {
                     @include tablet {
                         display: block;
@@ -49,7 +50,7 @@
             }
         }
 
-        .right {
+        .rightSection {
             display: flex;
             align-items: center;
 

@@ -2,6 +2,7 @@ import './register.scss'
 import { useState, useRef } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import logo from '../../components/navbar/logo.png'
 
 const Register = () => {
 
@@ -35,7 +36,7 @@ const Register = () => {
                 <div className="wrapper">
                     <img 
                         className="logo" 
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" 
+                        src={logo} 
                         alt="Logo" 
                     />
                     <button className="loginButton">Sign In</button>

@@ -31,17 +31,19 @@ const FilmCard = ({ open, handleClose, movie }) => {
         <DialogContent className="DialogContent" style={{backgroundColor: '#181818', border: "2px solid white"}}>
             <div className="filmCard">
                 <div className="closeCard"><CloseIcon className="xIcon" onClick={() => handleClose()} /></div>
-                <Link to={{ pathname: "/watch", movie: movie }}><div 
-                  className="imageHolder" 
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                >
-                  <PosterImage image={movie.img} />
-                  {isHovered ? 
-                    <PlayCircleFilledIcon className="playIcon" /> :
-                    <PlayCircleOutlineIcon className="playIcon" />
-                  }
-                </div></Link>
+                <Link to={{ pathname: "/watch", movie: movie }}>
+                  <div 
+                    className="imageHolder" 
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
+                    <PosterImage image={movie.img} />
+                    {isHovered ? 
+                      <PlayCircleFilledIcon className="playIcon" /> :
+                      <PlayCircleOutlineIcon className="playIcon" />
+                    }
+                  </div>
+                </Link>
                 <h2>{movie.title}</h2>
                 <p className="description">{movie.description}</p>
                 <p className="moreInfo"><span>{movie.isSeries ? 'Series Score: ' : 'Movie Score: '}</span>{movie.rating === 'N/A' ? 'N/A' : `${movie.rating} / 100`}</p>

@@ -4,6 +4,7 @@ import { Search } from '@material-ui/icons'
 import { Link, useHistory } from 'react-router-dom'
 import { logoutHandler } from '../../authContext/apiCalls'
 import { AuthContext } from '../../authContext/authContext'
+import logo from './logo.png'
 
 const Navbar = () => {
 
@@ -28,10 +29,10 @@ const Navbar = () => {
     return (
         <div className={isScrolled ? "navbar scrolled" : "navbar"}>
             <div className="container">
-                <div className="left">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" alt="" />
+                <div className="leftSection">
+                    <img src={logo} alt="" />
                     <Link to='/' className="link">
-                        <span>Home</span>
+                        <span className='navbarMainLinks'>Home</span>
                     </Link>
                     <Link to='/series' className="link">
                         <span className='navbarMainLinks'>TV Shows</span>
@@ -39,10 +40,10 @@ const Navbar = () => {
                     <Link to='/movies' className="link">
                         <span className='navbarMainLinks'>Movies</span>
                     </Link>
-                    <span>My List</span>
+                    <span className='navbarMainLinks'>My List</span>
                 </div>
-                <div className="right">
-                    <Search className="icon" />
+                <div className="rightSection">
+                    <Search className="icon navbarMainLinks" />
                     <span className="logout" onClick={handleLogout}>Logout</span>
                 </div>
             </div>

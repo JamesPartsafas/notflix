@@ -4,7 +4,7 @@ import { useLocation, Link } from 'react-router-dom'
 
 const Watch = () => {
 
-    //useLocation hook gets url and movie object that was passed in by ListItem
+    //useLocation hook gets url and movie object that was passed in by FilmCard
     const location = useLocation() 
     const movie = location.movie
 
@@ -13,7 +13,7 @@ const Watch = () => {
             <Link to="/">
                 <div className="back">
                     <ArrowBackOutlined />
-                    Home
+                    Return
                 </div>
             </Link>
             <video 

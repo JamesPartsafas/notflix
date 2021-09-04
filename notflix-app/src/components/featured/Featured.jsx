@@ -1,11 +1,18 @@
 import './featured.scss'
 import { InfoOutlined, PlayArrow } from '@material-ui/icons'
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import FilmCard from '../filmCard/FilmCard'
 import axios from 'axios'
 
 const Featured = ({ type }) => {
 
     const [content, setContent] = useState({})
+    const [open, setOpen] = useState(false)
+
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     useEffect(() => {
         const getRandomFeatured = async () => {
@@ -29,24 +36,28 @@ const Featured = ({ type }) => {
 
     return (
         <div className="featured">
-            <img src={content.img} alt="Featured Film" /> {/* Background image */}
+            <img src={content.img} alt="" /> {/* Background image */}
             <div className="info">
                 <h2>{content.title}</h2>
                 <span className="desc">{content.description}</span>
-                <span className="descInfo">Released: {content.year}</span>
-                <span className="descInfo">Rated: {content.limit}</span>
-                <span className="descInfo">{content.rating === 'N/A' ? 'Score: N/A' : (content.isSeries ? `Series Score: ${content.rating} / 100` : `Movie Score: ${content.rating} / 100`)}</span>
+                <span className="descInfo"><span className="descriptor">{content.isSeries ? 'Series Score: ' : 'Movie Score: '}</span>{content.rating === 'N/A' ? 'N/A' : `${content.rating} / 100`}</span>
+                <span className="descInfo"><span className="descriptor">Genre:</span> {content.genre}</span>
+                <span className="descInfo"><span className="descriptor">Release Year:</span> {content.year}</span>
+                <span className="descInfo"><span className="descriptor">Rated:</span> {content.limit}</span>
                 <div className="buttons">
-                    <button className="play">
-                        <PlayArrow />
-                        <span>Play</span>
-                    </button>
-                    <button className="more">
-                        <InfoOutlined />
-                        <span>More Info</span>
-                    </button>
+                    <Link to={{ pathname: "/watch", movie: content }} style={{ textDecoration: 'none' }}>
+                        <button className="play">
+                            <PlayArrow />
+                            <span>Play</span>
+                        </button>
+                    </Link>
+                        <button onClick={() => setOpen(true)} className="more">
+                            <InfoOutlined />
+                            <span>More Info</span>
+                        </button>
                 </div>
             </div>
+            <FilmCard open={open} handleClose={handleClose} movie={content} />
         </div>
     )
 }

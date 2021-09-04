@@ -2,6 +2,7 @@ import './login.scss'
 import { useState, useContext } from 'react'
 import { login } from '../../authContext/apiCalls'
 import { AuthContext } from '../../authContext/authContext'
+import logo from '../../components/navbar/logo.png'
 
 const Login = () => {
 
@@ -21,7 +22,7 @@ const Login = () => {
                 <div className="wrapper">
                     <img 
                         className="logo" 
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" 
+                        src={logo} 
                         alt="Logo" 
                     />
                     <button className="registerButton">Sign Up</button>
