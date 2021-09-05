@@ -53,6 +53,24 @@
                     font-size: 17px;
                 }
             }
+
+            .navLinks {
+                @include tablet {
+                    display: none;
+                }
+            }
+
+            .selectForm {
+                display: none;
+
+                @include tablet {
+                    display: flex;
+                }
+            }
+
+            .selectLabel, svg, .selectShown {
+                color: white !important;
+            }
         }
 
         .rightSection {
