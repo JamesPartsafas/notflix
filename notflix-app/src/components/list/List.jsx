@@ -24,6 +24,10 @@ const List = ({ list }) => {
             listItemWidth = 415
             distance = listRef.current.getBoundingClientRect().x - 50 //-50 because there's already a 50px margin
         }
+        else if (width > 660) {
+            listItemWidth = 195
+            distance = listRef.current.getBoundingClientRect().x - 50
+        }
         else {
             listItemWidth = 195
             distance = listRef.current.getBoundingClientRect().x - 15

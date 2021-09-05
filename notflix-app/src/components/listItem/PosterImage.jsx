@@ -14,7 +14,7 @@ const PosterImage = ({ image, title }) => {
         setDisplayedImage(image)
       }
     })
-  }, [])
+  }, [image])
 
   return (
     <div>

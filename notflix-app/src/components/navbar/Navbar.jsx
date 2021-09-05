@@ -6,7 +6,7 @@ import { logoutHandler } from '../../authContext/apiCalls'
 import { AuthContext } from '../../authContext/authContext'
 import logo from './logo.png'
 
-const Navbar = () => {
+const Navbar = ({ type }) => {
 
     const [isScrolled, setIsScrolled] = useState(false)
 
@@ -35,15 +35,15 @@ const Navbar = () => {
                 <div className="leftSection">
                     <img src={logo} alt="" />
                     <Link to='/' className="link">
-                        <span className='navbarMainLinks'>Home</span>
+                        <span className={`navbarMainLinks ${type == null && 'selected'}`}>Home</span>
                     </Link>
                     <Link to='/series' className="link">
-                        <span className='navbarMainLinks'>TV Shows</span>
+                        <span className={`navbarMainLinks ${type === 'series' && 'selected'}`}>TV Shows</span>
                     </Link>
                     <Link to='/movies' className="link">
-                        <span className='navbarMainLinks'>Movies</span>
+                        <span className={`navbarMainLinks ${type === 'movie' && 'selected'}`}>Movies</span>
                     </Link>
-                    <span className='navbarMainLinks'>My List</span>
+                    <span className={`navbarMainLinks ${type === 'list' && 'selected'}`}>My List</span>
                 </div>
                 <div className="rightSection">
                     <Search className="icon navbarMainLinks" />

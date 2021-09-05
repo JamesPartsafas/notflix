@@ -4,6 +4,15 @@
     background-color: var(--main-color);
     overflow: hidden;
 
+    .error {
+        color: white;
+        text-align: center;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .spinner {
         height: 100vh;
         display: flex;

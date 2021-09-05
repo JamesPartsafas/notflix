@@ -11,9 +11,13 @@ const Home = ({ type }) => {
     const [lists, setLists] = useState([])
     const [genre, setGenre] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
 
-    useEffect(async () => {
+    useEffect(() => {
         const getRandomLists = async () => {
+            
+            setLoading(true)
+            
             try {
                 const res = await axios.get(
                     `${process.env.REACT_APP_PROXY}lists/page${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`,
@@ -26,33 +30,42 @@ const Home = ({ type }) => {
                 setLists(res.data)
             }
             catch (err) {
-                console.log(err)
+                setError(true)
+                console.log('error')
             }
+
+            setLoading(false)
         }
 
-        setLoading(true)
-        await getRandomLists()
-        setLoading(false)
+        getRandomLists()
 
     }, [type, genre])
 
     return (
         <div className="home">
-            {loading ? (
-                <div className={'spinner'}>
-                    <CircularProgress color="secondary" size={130} />
+            {error ? (
+                <div className="error">
+                    There was an error. Our servers may be down. Please try again later.
                 </div>
-            ) : (
+            ) :
                 <>
-                    <Navbar />
-                    <Featured type={type} setGenre={setGenre} />
-                    <hr />
-                    {lists.map((list, index) => {
-                        return <List list={list} key={index} />
-                    })}
-                    <hr />
+                    {loading ? (
+                        <div className={'spinner'}>
+                            <CircularProgress color="secondary" size={130} />
+                        </div>
+                    ) : (
+                        <>
+                            <Navbar type={type} />
+                            <Featured type={type} setGenre={setGenre} />
+                            <hr />
+                            {lists.map((list, index) => {
+                                return <List list={list} key={index} />
+                            })}
+                            <hr />
+                        </>
+                    )}
                 </>
-            )}
+            }
         </div>
     )
 }
