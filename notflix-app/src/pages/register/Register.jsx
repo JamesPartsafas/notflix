@@ -40,7 +40,7 @@ const Register = () => {
         setPassword(passwordRef.current.value)
         try {
             const password = passwordRef.current.value
-            await axios.post('auth/register', {email, password, username: email})
+            await axios.post(`${process.env.REACT_APP_PROXY}auth/register`, {email, password, username: email})
             login({email, password}, dispatch)
         }
         catch (err) {

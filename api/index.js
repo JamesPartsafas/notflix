@@ -2,6 +2,7 @@
 
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const dotenv = require('dotenv')
 
 const authRoute = require('./routes/auth')
@@ -12,6 +13,8 @@ const listsRoute = require('./routes/lists')
 dotenv.config()
 
 const app = express()
+
+app.use(cors())
 
 //Connect to database
 mongoose
