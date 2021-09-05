@@ -1,3 +1,5 @@
+//Handles finding, modifying, and sending lists of films
+
 const express = require('express')
 const List = require('../models/List')
 const Movie = require('../models/Movie')

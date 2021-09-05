@@ -1,10 +1,12 @@
 //Entry point of API
 
+//Libraries imports
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const dotenv = require('dotenv')
 
+//Routes imports
 const authRoute = require('./routes/auth')
 const userRoute = require('./routes/users')
 const moviesRoute = require('./routes/movies')
@@ -14,7 +16,10 @@ dotenv.config()
 
 const app = express()
 
-app.use(cors())
+const corsOptions = {
+    origin: process.env.CLIENT
+}
+app.use(cors(corsOptions))
 
 //Connect to database
 mongoose

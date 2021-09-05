@@ -1,3 +1,5 @@
+//Handles finding, modifying, and sending individual films
+
 const express = require('express')
 const Movie = require('../models/Movie')
 const verify = require('../verifyToken')

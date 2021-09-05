@@ -2,7 +2,6 @@ import './register.scss'
 import { useState, useRef, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
 import logo from '../../components/navbar/logo.png'
 import { AuthContext } from '../../authContext/authContext'
 import { login } from '../../authContext/apiCalls'
@@ -11,10 +10,9 @@ const Register = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [failedGuestLogin, setFailedGuestLogin] = useState(false)
     const [existingAccount, setExistingAccount] = useState(false)
 
-    const {dispatch} = useContext(AuthContext)
+    const {dispatch, error} = useContext(AuthContext)
 
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -51,7 +49,6 @@ const Register = () => {
     const handleGuestClick = async (e) => {
         e.preventDefault()
         await login({email: process.env.REACT_APP_GUEST_NAME, password: process.env.REACT_APP_GUEST_PASSWORD}, dispatch)
-        setFailedGuestLogin(true)
     }
 
     return (
@@ -68,7 +65,7 @@ const Register = () => {
             </div>
             <div className="container">
                 {existingAccount && <p className="error">That account already exists. Please use another one.</p>}
-                {failedGuestLogin && <p className="error">The login failed. We may be having some server problems. Please try again later.</p>}
+                {error && <p className="error">The login failed. We may be having some server problems. Please try again later.</p>}
                 {email === -1 && <p className="error">Please enter a valid email address.</p>}
                 {password === -1 && <p className="error">Please enter a a password before registering.</p>}
                 <h1>Unlimited movies, TV shows, and more.</h1>

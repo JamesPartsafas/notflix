@@ -42,9 +42,7 @@ function App() {
                 <Watch />
               </Route>
             </> :
-            <Route path='/login'>
-              <Login />
-            </Route>
+            <Redirect to='/login' />
           }
         </Switch>
       </Router>

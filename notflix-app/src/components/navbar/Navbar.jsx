@@ -1,7 +1,7 @@
 import './navbar.scss'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Search } from '@material-ui/icons'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { logoutHandler } from '../../authContext/apiCalls'
 import { AuthContext } from '../../authContext/authContext'
 import logo from './logo.png'
@@ -12,8 +12,6 @@ const Navbar = () => {
 
     const {dispatch} = useContext(AuthContext)
 
-    const history = useHistory()
-
     //Detect window scrolling to determine navbar color
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true)
@@ -23,8 +21,13 @@ const Navbar = () => {
     const handleLogout = (e) => {
         e.preventDefault()
         logoutHandler(localStorage.getItem('user'), dispatch)
-        history.push('/login')
     }
+
+    useEffect(() => {
+        return () => {
+            setIsScrolled(false) //triggers on unmount to prevent memory leaks if isScrolled has become true
+        }
+    }, [])
 
     return (
         <div className={isScrolled ? "navbar scrolled" : "navbar"}>
