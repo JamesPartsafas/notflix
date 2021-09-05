@@ -4,6 +4,13 @@
     background-color: var(--main-color);
     overflow: hidden;
 
+    .spinner {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     hr {
         border: 1px solid #E50914;
         width: 60%;

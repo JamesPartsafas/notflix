@@ -4,13 +4,15 @@ import Featured from '../../components/featured/Featured'
 import List from '../../components/list/List'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const Home = ({ type }) => {
 
     const [lists, setLists] = useState([])
     const [genre, setGenre] = useState(null)
+    const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
+    useEffect(async () => {
         const getRandomLists = async () => {
             try {
                 const res = await axios.get(
@@ -27,18 +29,30 @@ const Home = ({ type }) => {
                 console.log(err)
             }
         }
-        getRandomLists()
+
+        setLoading(true)
+        await getRandomLists()
+        setLoading(false)
+
     }, [type, genre])
 
     return (
         <div className="home">
-            <Navbar />
-            <Featured type={type} setGenre={setGenre} />
-            <hr />
-            {lists.map((list, index) => {
-                return <List list={list} key={index} />
-            })}
-            <hr />
+            {loading ? (
+                <div className={'spinner'}>
+                    <CircularProgress color="secondary" size={130} />
+                </div>
+            ) : (
+                <>
+                    <Navbar />
+                    <Featured type={type} setGenre={setGenre} />
+                    <hr />
+                    {lists.map((list, index) => {
+                        return <List list={list} key={index} />
+                    })}
+                    <hr />
+                </>
+            )}
         </div>
     )
 }

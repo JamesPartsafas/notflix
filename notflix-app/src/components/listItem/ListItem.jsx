@@ -15,7 +15,7 @@ const ListItem = ({ movie }) => {
             <div className="listItem">
                 <div className="imageHolder" >
                     <div onClick={() => setOpen(true)}>
-                        <PosterImage image={movie.img} />
+                        <PosterImage image={movie.img} title={movie.title} />
                     </div>
                     <FilmCard open={open} handleClose={handleClose} movie={movie} />
                 </div>

@@ -37,7 +37,7 @@ const FilmCard = ({ open, handleClose, movie }) => {
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                   >
-                    <PosterImage image={movie.img} />
+                    <img src={movie.img} alt={`${movie.title} Poster`} />
                     {isHovered ? 
                       <PlayCircleFilledIcon className="playIcon" /> :
                       <PlayCircleOutlineIcon className="playIcon" />

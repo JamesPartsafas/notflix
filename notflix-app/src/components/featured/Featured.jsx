@@ -14,6 +14,7 @@ const Featured = ({ type }) => {
         setOpen(false);
     }
 
+    //Get movie data
     useEffect(() => {
         const getRandomFeatured = async () => {
             try {

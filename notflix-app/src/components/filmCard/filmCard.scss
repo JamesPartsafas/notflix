@@ -30,6 +30,12 @@
         position: relative;
         cursor: pointer;
 
+        &:hover {
+            border-color: #e50914;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
         img {
             @include mobile {
                 width: 100%;
