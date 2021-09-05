@@ -79,6 +79,25 @@ router.get('/find/:id', verify, async (req, res) => {
     }
 })
 
+//POST
+//Get favorites film information
+router.post('/favorites', /*verify,*/ async (req, res) => {
+    try {
+        const list = [{title: "My List", _id: "1", info: []}]
+        const favorites = req.body.favorites
+
+        for (let i = 0; i < favorites.length; i++) {
+            const movie = await Movie.findById(favorites[i])
+            list[0].info.push(movie)
+        }
+
+        res.status(200).json(list)
+    }
+    catch (err) {
+        res.status(500).json(err)
+    }
+})
+
 //GET RANDOM
 //Get film information of a randomly selected film
 router.get('/random', verify, async (req, res) => {

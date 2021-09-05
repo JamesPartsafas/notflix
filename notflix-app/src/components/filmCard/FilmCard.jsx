@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -6,6 +6,7 @@ import Slide from '@material-ui/core/Slide'
 import CloseIcon from '@material-ui/icons/Close'
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled'
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import { AuthContext } from '../../authContext/authContext'
 import axios from 'axios'
 import './filmCard.scss'
@@ -15,18 +16,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 const FilmCard = ({ open, handleClose, movie }) => {
-
-  const [isHovered, setIsHovered] = useState(false)
-  const [isInMyList, setIsInMyList] = useState(false)
-
+  
   const {user} = useContext(AuthContext)
 
-  //Check if movie is in favorites list
-  useEffect(() => {
-    if (user.favorites && user.favorites.includes(movie._id)) {
-      setIsInMyList(true)
-    }
-  }, [user.favorites, movie._id])
+  const [isHovered, setIsHovered] = useState(false)
+  const [isInMyList, setIsInMyList] = useState(user.favorites && user.favorites.includes(movie._id))
 
   //Handle adding or removing from favorites list
   const handleMyList = async () => {
@@ -87,7 +81,7 @@ const FilmCard = ({ open, handleClose, movie }) => {
                     }
                   </div>
                 </Link>
-                <button onClick={handleMyList}>{isInMyList ? 'Remove from list' : 'Add to list'}</button>
+                <button onClick={handleMyList}><AddCircleOutlineIcon className='addIcon' /> {isInMyList ? 'Remove from list' : 'Add to list'}</button>
                 <h2>{movie.title}</h2>
                 <p className="description">{movie.description}</p>
                 <p className="moreInfo"><span>{movie.isSeries ? 'Series Score: ' : 'Movie Score: '}</span>{movie.rating === 'N/A' ? 'N/A' : `${movie.rating} / 100`}</p>
@@ -97,7 +91,7 @@ const FilmCard = ({ open, handleClose, movie }) => {
             </div>
         </DialogContent>
       </Dialog>
-  );
+  )
 }
 
 export default FilmCard

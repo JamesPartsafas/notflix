@@ -9,7 +9,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 const Home = ({ type }) => {
 
     const [lists, setLists] = useState([])
-    const [genre, setGenre] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
 
@@ -17,21 +16,42 @@ const Home = ({ type }) => {
         const getRandomLists = async () => {
             
             setLoading(true)
-            
-            try {
-                const res = await axios.get(
-                    `${process.env.REACT_APP_PROXY}lists/page${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`,
-                    {
-                        headers: {
-                            token: `Bearer ${JSON.parse(localStorage.getItem('user')).accessToken}`
+
+            //Check if user wants to see favorites list or another page
+            if (type === 'list') {
+                try {
+                    const currentUser = JSON.parse(localStorage.getItem('user')) || null
+                    const res = await axios.post(
+                        `${process.env.REACT_APP_PROXY}movies/favorites`, {favorites: currentUser.favorites}, 
+                        {
+                            headers: {
+                                token: `Bearer ${currentUser.accessToken}`
+                            }
                         }
-                    }
-                )
-                setLists(res.data)
+                    )
+                    
+                    setLists(res.data)
+                }
+                catch (err) {
+                    setError(true)
+                }
             }
-            catch (err) {
-                setError(true)
-                console.log('error')
+            else {
+                try {
+                    const res = await axios.get(
+                        `${process.env.REACT_APP_PROXY}lists/page${type ? "?type=" + type : ""}`,
+                        {
+                            headers: {
+                                token: `Bearer ${JSON.parse(localStorage.getItem('user')).accessToken}`
+                            }
+                        }
+                    )
+                    
+                    setLists(res.data)
+                }
+                catch (err) {
+                    setError(true)
+                }
             }
 
             setLoading(false)
@@ -39,7 +59,7 @@ const Home = ({ type }) => {
 
         getRandomLists()
 
-    }, [type, genre])
+    }, [type])
 
     return (
         <div className="home">
@@ -56,7 +76,7 @@ const Home = ({ type }) => {
                     ) : (
                         <>
                             <Navbar type={type} />
-                            <Featured type={type} setGenre={setGenre} />
+                            <Featured type={type} />
                             <hr />
                             {lists.map((list, index) => {
                                 return <List list={list} key={index} />

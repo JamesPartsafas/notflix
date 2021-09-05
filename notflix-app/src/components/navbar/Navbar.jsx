@@ -43,7 +43,9 @@ const Navbar = ({ type }) => {
                     <Link to='/movies' className="link">
                         <span className={`navbarMainLinks ${type === 'movie' && 'selected'}`}>Movies</span>
                     </Link>
-                    <span className={`navbarMainLinks ${type === 'list' && 'selected'}`}>My List</span>
+                    <Link to='/mylist' className="link">
+                        <span className={`navbarMainLinks ${type === 'list' && 'selected'}`}>My List</span>
+                    </Link>
                 </div>
                 <div className="rightSection">
                     <Search className="icon navbarMainLinks" />
