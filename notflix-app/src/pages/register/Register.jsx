@@ -1,33 +1,57 @@
 import './register.scss'
-import { useState, useRef } from 'react'
+import { useState, useRef, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import logo from '../../components/navbar/logo.png'
+import { AuthContext } from '../../authContext/authContext'
+import { login } from '../../authContext/apiCalls'
 
 const Register = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    
-    const history = useHistory()
+    const [failedGuestLogin, setFailedGuestLogin] = useState(false)
+    const [existingAccount, setExistingAccount] = useState(false)
+
+    const {dispatch} = useContext(AuthContext)
 
     const emailRef = useRef()
     const passwordRef = useRef()
 
     const handleStartClick = () => {
-        setEmail(emailRef.current.value)
+
+        //Verify that email is valid, then setEmail if so
+        const emailRegex = /\S+@\S+\.\S+/
+
+        const valid = emailRef.current.value.match(emailRegex)
+        if (valid)
+            setEmail(emailRef.current.value)
+        else   
+            setEmail(-1)
     }
 
     const handlePasswordClick = async (e) => {
         e.preventDefault()
+        if (!passwordRef.current.value) {
+            setPassword(-1)
+            return
+        }
         setPassword(passwordRef.current.value)
         try {
+            const password = passwordRef.current.value
             await axios.post('auth/register', {email, password, username: email})
-            history.push('/login')
+            login({email, password}, dispatch)
         }
         catch (err) {
-            console.log(err)
+            setExistingAccount(true)
         }
+    }
+
+    const handleGuestClick = async (e) => {
+        e.preventDefault()
+        await login({email: process.env.REACT_APP_GUEST_NAME, password: process.env.REACT_APP_GUEST_PASSWORD}, dispatch)
+        setFailedGuestLogin(true)
     }
 
     return (
@@ -39,17 +63,21 @@ const Register = () => {
                         src={logo} 
                         alt="Logo" 
                     />
-                    <button className="loginButton">Sign In</button>
+                    <Link to='/login' style={{textDecoration: 'none'}}><button className="loginButton">Sign In</button></Link>
                 </div>
             </div>
             <div className="container">
-                <h1>Watch unlimited movies and TV shows</h1>
-                <h2>Anywhere, anytime.</h2>
+                {existingAccount && <p className="error">That account already exists. Please use another one.</p>}
+                {failedGuestLogin && <p className="error">The login failed. We may be having some server problems. Please try again later.</p>}
+                {email === -1 && <p className="error">Please enter a valid email address.</p>}
+                {password === -1 && <p className="error">Please enter a a password before registering.</p>}
+                <h1>Unlimited movies, TV shows, and more.</h1>
+                <h2>Watch anywhere. Cancel anytime.</h2>
                 <p>
-                    Ready to watch? Enter your email and a password to start your membership.
+                    Ready to watch? Enter your email to create or restart your membership.
                 </p>
                 {
-                    !email ? (
+                    (!email || email === -1) ? (
                         <div className="input">
                             <input type="email" placeholder="Enter your email" ref={emailRef} />
                             <button className="registerButton" onClick={handleStartClick}>Get Started</button>
@@ -61,6 +89,8 @@ const Register = () => {
                         </form>
                     )
                 }
+                <h2 className="visiting">Just visiting? Sign In as a Guest</h2>
+                <button className="guestSignIn" onClick={handleGuestClick}>Sign In as Guest</button>
             </div>
         </div>
     )

@@ -1,3 +1,5 @@
+@import '../../index.scss';
+
 .register {
     width: 100vw;
     height: 100vh;
@@ -10,79 +12,168 @@
     background-size: cover;
     position: relative;
 
+    .error {
+        background-color: #e87c03;
+        border-radius: 5px;
+        padding: 14px;
+        margin: 20px;
+    }
+
     .top {
+        position: relative;
+        z-index: 10;
+
         .wrapper {
             padding: 20px 50px;
             display: flex;
             align-items: center;
             justify-content: space-between;
 
+            @include mobile {
+                display: static;
+                padding-left: 10%;
+            }
+
             .logo {
                 height: 40px;
             }
     
             .loginButton {
-                background-color: red;
+                background-color: #e50914;
                 border: none;
                 color: white;
                 border-radius: 5px;
-                padding: 5px 15px;
+                padding: 8px 18px;
                 font-size: 16px;
                 font-weight: 500;
                 cursor: pointer;
+
+                &:hover {
+                    border: 2px solid white;
+                }
+
+                @include mobile {
+                    display: none;
+                }
             }
         }
     }
 
     .container {
-        width: 100%;
-        height: 100%;
-        position: absolute;
+        width: 770px;
+        position: static;
         top: 0;
-        left: 0;
+        margin: 70px auto;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         color: white;
+        z-index: 0;
+        text-align: center;
+
+        @include tablet {
+            width: 95%;
+        }
 
         h1 {
-            font-size: 50px;
+            font-size: 60px;
+
+            @include laptop {
+                font-size: 40px;
+            }
         }
 
         h2 {
             margin: 20px;
+            font-size: 26px;
+            font-weight: 400;
         }
 
         p {
-            font: 20px;
+            font-size: 17px;
         }
 
         .input {
-            width: 50%;
-            background-color: white;
+            width: 90%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-top: 20px;
             height: 50px;
-            border-radius: 5px;
+
+            @include tablet {
+                display: block;
+                height: auto;
+            }
 
             input {
                 flex: 9;
                 height: 100%;
                 border: none;
                 padding: 0 10px;
+                border-radius: 5px 0 0 5px;
+
+                @include tablet {
+                    border-radius: 5px;
+                    flex: auto;
+                    width: 80%;
+                    padding: 15px;
+                }
+
+                @include mobile {
+                    width: 90%;
+                    margin: 0;
+                }
             }
 
             .registerButton {
                 flex: 3;
                 height: 100%;
-                background-color: red;
+                background-color: #e50914;
                 border: none;
                 color: white;
                 font-size: 19px;
                 cursor: pointer;
+                border-radius: 0 5px 5px 0;
+
+                &:hover {
+                    background-color: red;
+                    transition: all 0.2s ease;
+                }
+
+                @include tablet {
+                    border-radius: 5px;
+                    flex: auto;
+                    display: block;
+                    margin: 20px auto;
+                    padding: 15px;
+                }
+            }
+        }
+
+        .visiting {
+            margin-top: 50px;
+        }
+
+        .guestSignIn {
+            border-radius: 5px;
+            background-color: #e50914;
+            color: white;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 5px auto;
+            padding: 15px;
+            width: 600px;
+
+            &:hover {
+                border: 2px solid white;
+            }
+
+            @include tablet {
+                width: 85%;
             }
         }
     }

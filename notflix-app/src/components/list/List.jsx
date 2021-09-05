@@ -9,7 +9,7 @@ const List = ({ list }) => {
     const [slideNumber, setSlideNumber] = useState(0)
     const [disable, setDisable] = useState(false)
 
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
 
     const listRef = useRef()
 

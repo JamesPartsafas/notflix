@@ -1,3 +1,5 @@
+@import '../../index.scss';
+
 .login {
     width: 100vw;
     height: 100vh;
@@ -11,25 +13,41 @@
     position: relative;
 
     .top {
+        position: relative;
+        z-index: 10;
+
         .wrapper {
             padding: 20px 50px;
             display: flex;
             align-items: center;
             justify-content: space-between;
 
+            @include mobile {
+                display: static;
+                padding-left: 10%;
+            }
+
             .logo {
                 height: 40px;
             }
     
             .registerButton {
-                background-color: red;
+                background-color: #e50914;
                 border: none;
                 color: white;
                 border-radius: 5px;
-                padding: 5px 15px;
+                padding: 8px 18px;
                 font-size: 16px;
                 font-weight: 500;
                 cursor: pointer;
+
+                &:hover {
+                    border: 2px solid white;
+                }
+
+                @include mobile {
+                    display: none;
+                }
             }
         }
     }
@@ -45,24 +63,48 @@
         align-items: center;
         justify-content: center;
         color: white;
+        z-index: 0;
+
+        @include mobile {
+            width: 90vw;
+        }
     }
 
     form {
-        width: 300px;
-        height: 300px;
-        padding: 30px;
-        border-radius: 5px;
-        background-color: var(--main-color);
+        width: 370px;
+        padding: 60px 60px 80px;
+        border-radius: 5px;        
+        background-color: rgb(20, 20, 20); //Background color backup for IE
+        background-color: rgba(20, 20, 20, 0.75);
         display: flex;
         flex-direction: column;
         justify-content: space-around;
 
+        @include mobile {
+            width: 95%;
+        }
+
+        .error {
+            background-color: #e87c03;
+            border-radius: 5px;
+            padding: 14px;
+            margin-top: 15px;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
         input {
             height: 40px;
             border-radius: 5px;
-            background-color: gray;
-            color: white;
+            background-color: #333333;
+            color: #c4c4c4;
             padding-left: 10px;
+            border: 0;
+            font-size: 17px;
+            padding: 10px 15px;
+            margin: 15px 0px;
 
             &::placeholder {
                 color: lightgray;
@@ -70,21 +112,31 @@
         }
 
         button {
-            height: 40px;
             border-radius: 5px;
-            background-color: red;
+            background-color: #e50914;
             color: white;
             border: none;
-            font-style: 18px;
+            font-size: 18px;
             font-weight: 500;
             cursor: pointer;
+            margin: 30px auto;
+            padding: 15px;
+            width: 100%;
+
+            &:hover {
+                border: 2px solid white;
+            }
         }
 
-        span {
-            color: lightgray;
+        span, small {
+            color: #afafaf;
 
             b {
                 color: white;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
     }
