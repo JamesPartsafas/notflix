@@ -82,6 +82,30 @@
                 cursor: pointer;
             }
 
+            .searchBar {
+                display: block;
+                position: absolute;
+                top: 60px;
+                right: 51px;
+                
+                @include mobile {
+                    width: 95vw;
+                    margin: auto;
+                    text-align: center;
+                    right: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            .MuiAutocomplete-root {
+                
+                input {
+                    color: black;
+                }
+            }
+
             .logout {
                 background-color: #E50914;
                 cursor: pointer;

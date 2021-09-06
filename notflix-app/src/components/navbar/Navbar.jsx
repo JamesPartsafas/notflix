@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
+import SearchBar from './Search'
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -27,6 +28,7 @@ const Navbar = ({ type }) => {
 
     const [isScrolled, setIsScrolled] = useState(false)
     const [page, setPage] = useState('')
+    const [isSearching, setIsSearching] = useState(false)
 
     const {dispatch} = useContext(AuthContext)
 
@@ -72,7 +74,7 @@ const Navbar = ({ type }) => {
                         </Link>
                     </div>
 
-                    <FormControl variant="" className={`${classes.formControl} selectForm`}>
+                    <FormControl variant="standard" className={`${classes.formControl} selectForm`}>
                         <InputLabel className="selectLabel" id="selectedPage">Browse</InputLabel>
                         <Select
                             labelId="selectedPage"
@@ -97,7 +99,8 @@ const Navbar = ({ type }) => {
                     </FormControl>
                 </div>
                 <div className="rightSection">
-                    <Search className="icon navbarMainLinks" />
+                    <Search className="icon navbarMainLinks" onClick={() => setIsSearching(prev => !prev)} />
+                    {isSearching && <div className="searchBar"><SearchBar /></div>}
                     <span className="logout" onClick={handleLogout}>Logout</span>
                 </div>
             </div>

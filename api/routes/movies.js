@@ -124,6 +124,22 @@ router.get('/random', verify, async (req, res) => {
     }
 })
 
+//GET SEARCH
+//Get films that match search query
+router.get('/search', verify, async (req, res) => {
+    const inputRegex = new RegExp(req.query.input, 'i')
+    let movie
+    const responseSize = 8 //Limit number of items sent back to user
+
+    try {
+        movie = await Movie.find({title: inputRegex}).limit(responseSize)
+        res.status(200).json(movie)
+    }
+    catch (err) {
+        res.status(500).json(err)
+    }
+})
+
 //GET ALL
 //Get all films from the database
 router.get('/', verify, async (req, res) => {
