@@ -37,11 +37,11 @@ const Login = () => {
             <div className="container">
                 <form>
                     {error && <p className="error">Make sure you entered the correct email and password. If you are visiting, consider signing in as a guest.</p>}
-                    <h1>Sign In</h1>
+                    <h1 data-testid='header'>Sign In</h1>
                     <button onClick={handleGuestClick}>Sign In as Guest</button>
                     <p>Or sign in to your personal account:</p>
-                    <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                    <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                    <input data-testid='email-input' type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                    <input data-testid='password-input' type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                     <button onClick={handleClick}>Sign In</button>
                     <span>New to Netflix? <Link to='/register' style={{textDecoration: 'none'}}><b>Sign Up</b></Link></span>
                     <small>

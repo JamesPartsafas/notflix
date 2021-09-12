@@ -17,6 +17,7 @@ const Watch = () => {
                 </div>
             </Link>
             <video 
+                data-testid='video'
                 className="video" 
                 autoPlay 
                 progress='true'

@@ -68,7 +68,7 @@ const Register = () => {
                 {error && <p className="error">The login failed. We may be having some server problems. Please try again later.</p>}
                 {email === -1 && <p className="error">Please enter a valid email address.</p>}
                 {password === -1 && <p className="error">Please enter a a password before registering.</p>}
-                <h1>Unlimited movies, TV shows, and more.</h1>
+                <h1 data-testid='header'>Unlimited movies, TV shows, and more.</h1>
                 <h2>Watch anywhere. Cancel anytime.</h2>
                 <p>
                     Ready to watch? Enter your email to create or restart your membership.
@@ -76,12 +76,12 @@ const Register = () => {
                 {
                     (!email || email === -1) ? (
                         <div className="input">
-                            <input type="email" placeholder="Enter your email" ref={emailRef} />
-                            <button className="registerButton" onClick={handleStartClick}>Get Started</button>
+                            <input data-testid='email-input' type="email" placeholder="Enter your email" ref={emailRef} />
+                            <button data-testid='get-started' className="registerButton" onClick={handleStartClick}>Get Started</button>
                         </div>
                     ) : (
                         <form className="input">
-                            <input type="password" placeholder="Enter your password" ref={passwordRef} />
+                            <input data-testid='password-input' type="password" placeholder="Enter your password" ref={passwordRef} />
                             <button className="registerButton" onClick={handlePasswordClick}>Sign Up</button>
                         </form>
                     )
