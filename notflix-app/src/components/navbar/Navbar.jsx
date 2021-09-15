@@ -99,7 +99,7 @@ const Navbar = ({ type }) => {
                     </FormControl>
                 </div>
                 <div className="rightSection">
-                    <Search className="icon navbarMainLinks" onClick={() => setIsSearching(prev => !prev)} />
+                    <Search className="icon navbarMainLinks logout" onClick={() => setIsSearching(prev => !prev)} />
                     {isSearching && <div className="searchBar"><SearchBar /></div>}
                     <span className="logout" onClick={handleLogout}>Logout</span>
                 </div>
