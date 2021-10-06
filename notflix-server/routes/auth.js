@@ -54,4 +54,9 @@ router.post('/login', async (req, res) => {
     }
 })
 
+//WAKEUP
+router.get('/wakeup', (req, res) => {
+    res.status(200).json('Awakened')
+})
+
 module.exports = router

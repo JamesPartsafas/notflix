@@ -1,13 +1,15 @@
 import './login.scss'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { login } from '../../authContext/apiCalls'
 import { AuthContext } from '../../authContext/authContext'
+import axios from 'axios'
 import logo from '../../components/navbar/logo.png'
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
+    const [hasError, setHasError] = useState(false)
     const [password, setPassword] = useState('')
 
     const {dispatch, error} = useContext(AuthContext)
@@ -21,6 +23,18 @@ const Login = () => {
         e.preventDefault()
         await login({email: process.env.REACT_APP_GUEST_NAME, password: process.env.REACT_APP_GUEST_PASSWORD}, dispatch)
     }
+
+    useEffect(() => {
+        const wakeupApp = async () => {
+            try {
+                await axios.get(`${process.env.REACT_APP_PROXY}auth/wakeup`)
+            }
+            catch (err) {
+                setHasError(true)
+            }
+        }
+        wakeupApp()
+    }, [])
 
     return (
         <div className="login">
@@ -36,7 +50,7 @@ const Login = () => {
             </div>
             <div className="container">
                 <form>
-                    {error && <p className="error">Make sure you entered the correct email and password. If you are visiting, consider signing in as a guest.</p>}
+                    {(error || hasError) && <p className="error">Make sure you entered the correct email and password. If you are visiting, consider signing in as a guest.</p>}
                     <h1 data-testid='header'>Sign In</h1>
                     <button onClick={handleGuestClick}>Sign In as Guest</button>
                     <p>Or sign in to your personal account:</p>

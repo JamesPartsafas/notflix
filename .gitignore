@@ -12,6 +12,7 @@
 /coverage
 
 # production
+/notflix-app/build
 /build
 
 # misc

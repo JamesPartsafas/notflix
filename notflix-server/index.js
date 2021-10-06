@@ -39,6 +39,6 @@ app.use('/api/movies', moviesRoute)
 app.use('/api/lists', listsRoute)
 
 //Start server
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 8800, () => {
     console.log("Backend server running")
 })
