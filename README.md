@@ -1,6 +1,8 @@
 # Notflix
 Notflix is a fullstack application based on video-streaming applications such as Netflix or Hulu. Users can create accounts, log-in, search for movies or TV shows that exist in the database, browse available offerings, save content to a "favorites" list, and view video content, as well as obtain more information about any given offering by clicking on its poster. Plans exist to implement administrator functionalities, including modifying content and deleting user accounts.
 
+The application can be accessed here: https://notflixapp.netlify.app/
+
 The application is built upon the MERN stack, using MongoDB for its database, ExpressJS and NodeJS for server-side processing, and React for the frontend. The base seeding of the database was done using a custom-built web scraper.
 
 In this repository, there exists a `notflix-app` folder, which represents the user front-end, the `notflix-server` folder, which represents the application's backend, and the `data-seed` folder, which houses the web scraper built for the initial database data.
