@@ -5,6 +5,7 @@ import axios from 'axios'
 import logo from '../../components/navbar/logo.png'
 import { AuthContext } from '../../authContext/authContext'
 import { login } from '../../authContext/apiCalls'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const Register = () => {
 
@@ -12,6 +13,7 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const [existingAccount, setExistingAccount] = useState(false)
     const [hasError, setHasError] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     const {dispatch, error} = useContext(AuthContext)
 
@@ -61,48 +63,60 @@ const Register = () => {
                 setHasError(true)
             }
         }
+        setIsLoading(true)
         wakeupApp()
+        setIsLoading(false)
     }, [])
 
     return (
-        <div className="register">
-            <div className="top">
-                <div className="wrapper">
-                    <img 
-                        className="logo" 
-                        src={logo} 
-                        alt="Logo" 
-                    />
-                    <Link to='/login' style={{textDecoration: 'none'}}><button className="loginButton">Sign In</button></Link>
+        <>
+        {isLoading ? (
+            <div className={'spinner'}>
+                <CircularProgress color="secondary" size={130} />
+                <h4>Waking Heroku App. This may take a few seconds.</h4>
+            </div>
+        ) : (
+            <div className="register">
+                <div className="top">
+                    <div className="wrapper">
+                        <img 
+                            className="logo" 
+                            src={logo} 
+                            alt="Logo" 
+                        />
+                        <Link to='/login' style={{textDecoration: 'none'}}><button className="loginButton">Sign In</button></Link>
+                    </div>
+                </div>
+                <div className="container">
+                    {existingAccount && <p className="error">That account already exists. Please use another one.</p>}
+                    {(error || hasError) && <p className="error">The server connection failed. We may be having some server problems. Please try again later.</p>}
+                    {email === -1 && <p className="error">Please enter a valid email address.</p>}
+                    {password === -1 && <p className="error">Please enter a a password before registering.</p>}
+                    <h1 data-testid='header'>Unlimited movies, TV shows, and more.</h1>
+                    <h2>Watch anywhere. Cancel anytime.</h2>
+                    <p>
+                        Ready to watch? Enter your email to create or restart your membership.
+                    </p>
+                    {
+                        (!email || email === -1) ? (
+                            <div className="input">
+                                <input data-testid='email-input' type="email" placeholder="Enter your email" ref={emailRef} />
+                                <button data-testid='get-started' className="registerButton" onClick={handleStartClick}>Get Started</button>
+                            </div>
+                        ) : (
+                            <form className="input">
+                                <input data-testid='password-input' type="password" placeholder="Enter your password" ref={passwordRef} />
+                                <button className="registerButton" onClick={handlePasswordClick}>Sign Up</button>
+                            </form>
+                        )
+                    }
+                    <h2 className="visiting">Just visiting? Sign In as a Guest</h2>
+                    <button className="guestSignIn" onClick={handleGuestClick}>Sign In as Guest</button>
                 </div>
             </div>
-            <div className="container">
-                {existingAccount && <p className="error">That account already exists. Please use another one.</p>}
-                {(error || hasError) && <p className="error">The server connection failed. We may be having some server problems. Please try again later.</p>}
-                {email === -1 && <p className="error">Please enter a valid email address.</p>}
-                {password === -1 && <p className="error">Please enter a a password before registering.</p>}
-                <h1 data-testid='header'>Unlimited movies, TV shows, and more.</h1>
-                <h2>Watch anywhere. Cancel anytime.</h2>
-                <p>
-                    Ready to watch? Enter your email to create or restart your membership.
-                </p>
-                {
-                    (!email || email === -1) ? (
-                        <div className="input">
-                            <input data-testid='email-input' type="email" placeholder="Enter your email" ref={emailRef} />
-                            <button data-testid='get-started' className="registerButton" onClick={handleStartClick}>Get Started</button>
-                        </div>
-                    ) : (
-                        <form className="input">
-                            <input data-testid='password-input' type="password" placeholder="Enter your password" ref={passwordRef} />
-                            <button className="registerButton" onClick={handlePasswordClick}>Sign Up</button>
-                        </form>
-                    )
-                }
-                <h2 className="visiting">Just visiting? Sign In as a Guest</h2>
-                <button className="guestSignIn" onClick={handleGuestClick}>Sign In as Guest</button>
-            </div>
-        </div>
+            )
+        }
+        </>
     )
 }
 
