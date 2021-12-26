@@ -29,15 +29,17 @@ const Login = () => {
     useEffect(() => {
         const wakeupApp = async () => {
             try {
+                setIsLoading(true)
                 await axios.get(`${process.env.REACT_APP_PROXY}auth/wakeup`)
             }
             catch (err) {
                 setHasError(true)
             }
+            finally {
+                setIsLoading(false)
+            }
         }
-        setIsLoading(true)
         wakeupApp()
-        setIsLoading(false)
     }, [])
 
     return (
